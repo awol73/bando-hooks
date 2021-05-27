@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Fragment, useState} from 'react'
+// import Pera from './components/Pera';
+// import Bandoneon from './components/Bandoneon'
+import Acorde from './components/Acorde'
 
 function App() {
+
+  const [keyState, setKeyState] = useState({
+    ki1: false,
+    ki2: false,
+    ki3: false,
+    ki4: false
+  });
+
+  const emptyKey = {
+    ki1: false,
+    ki2: false,
+    ki3: false,
+    ki4: false
+  };
+
+  const handleChord = (chord) => {
+    setKeyState({
+      ...emptyKey,
+      ...chord
+    });
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Pear Svg</h1>
+      {/* <Pera /> */}
+      <Acorde keyState={keyState} setKeyState={setKeyState} />
+      {/* <Bandoneon /> */}
+      <button onClick={() => handleChord({ki1: true, ki2: true})}>Make the Chord!</button>
+      <button onClick={() => handleChord({ki1: true, ki2: true, ki4: true})}>Make the Chord!</button>
+      <button onClick={() => handleChord({ki2: true, ki3: true})}>Make the Chord!</button>
     </div>
   );
 }
