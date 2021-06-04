@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Cmaj7",
+        "mode": "open",
+        "keySettings": {"k0": true, "k4": true, "k7": true}
+    },
+    {
+        "name": "Cmaj7",
+        "mode": "close",
+        "keySettings": {"k0": true, "k4": true, "k7": true}
+    },
+    {
+        "name": "Amaj7",
+        "mode": "open",
+        "keySettings": {"k1": true, "k2": true, "k3": true}
+    },
+    {
+        "name": "G7",
+        "mode": "open",
+        "keySettings": {"k11": true, "k3/3": true, "k*": true, "k7": true}
+    },
+    {
+        "name": "Dm7",
+        "mode": "open",
+        "keySettings": {"k0/0": true, "k16": true, "k1": true, "k3/4": true}
+    }
+]
