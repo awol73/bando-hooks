@@ -4,10 +4,11 @@ import Container from '@material-ui/core/Container';
 import { Grid } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Izquierdo2 from './components/Izquierdo2';
 import Tonalidades from './components/Tonalidades';
 import Acordes from './components/Acordes';
+import AbriendoCerrando from './components/AbriendoCerrando'
 
 import lista_de_escalas from './components/tonalidades_mayores.json';
 import lista_de_acordes from './components/acordes.json';
@@ -43,13 +44,31 @@ function App() {
     'k0/0': false, ki2: false, ki3: false, ki4: false, ki5: false, ki6: false, ki7: false, ki8: false, ki9: false, ki10: false, ki11: false, ki12: false, ki13: false, ki14: false, ki15: false, ki16: false, ki17: false, ki18: false, ki19: false, ki20: false, ki21: false, ki22: false, ki23: false, ki24: false, ki25: false, ki26: false, ki27: false, ki28: false, ki29: false, ki30: false, ki31: false, ki32: false, ki33: false
   };
 
+  /* Cuando el switch stCerrar.cerrando esta en false
+   * significa que el bandoneon esta en estado abriendo
+   * con lo cual va a buscar todos los acordes con mode
+   * open. stCerrar.cerrando = false entonces mode = open
+   */
+  const [stCerrar, setCerrar] = React.useState({
+    cerrando: false,
+  });
+  
+  const handleCerrar = (event) => {
+    setCerrar({ ...stCerrar, [event.target.name]: event.target.checked });
+    console.log("cerrando:", stCerrar.cerrando);
+  };
+
   // Setea el estado de cada tecla en on/off
   // segun el objeto que recibe.
   //
   const handleChord = (chord) => {
 
     console.log("Acorde: ", chord);
-    const keys = lista_de_acordes.filter((item) => item.name === chord);
+    
+    const keys = lista_de_acordes.filter((item) => {
+      console.log("Estado del Switch:", stCerrar.cerrando);  
+      return (item.name === chord && item.mode === (stCerrar.cerrando ? "close" : "open"));
+    });
 
     console.log("Set de teclas para ", chord, keys);
     // keys es un array devuelto por flter es por eso que tomo
@@ -77,10 +96,7 @@ function App() {
             </Typography>
         </Grid>
         <Grid item xs={12} sm={2} md={2}>
-          <Typography variant="3" gutterBottom align="center" className={classes.h2Title}>
-              Abriendo Cerrando 
-          </Typography>
-          <Button variant="contained" onClick={() => handleChord({})}>⎴⏐⌃</Button>
+          <AbriendoCerrando stCerrar={stCerrar} handleCerrar={handleCerrar}/>
         </Grid>
         <Grid item xs={12} sm={10} md={10}>
           <Typography variant="h4" gutterBottom align="center" className={classes.h2Title}>
@@ -91,7 +107,7 @@ function App() {
           <Tonalidades lista_de_escalas={lista_de_escalas} setAcordesDeLaEscala={setAcordesDeLaEscala}/>
         </Grid>
         <Grid item xs={12} sm={10} md={10}>
-          <Izquierdo2 keyState={keyState} setKeyState={setKeyState} />
+          <Izquierdo2 keyState={keyState} stCerrar={stCerrar} />
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
           <Acordes acordesDeLaEscala={acordesDeLaEscala} handleChord={handleChord} />

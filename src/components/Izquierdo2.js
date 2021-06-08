@@ -1,17 +1,24 @@
 
-const Izquierdo2 = ({keyState, setKeyState}) => {
+const Izquierdo2 = ({keyState, stCerrar}) => {
     
-    const elipse = (on) => <ellipse 
+    const elipse = (on) => { 
+
+            let colorKey= "#a39b9f";
+            
+            stCerrar.cerrando ? (colorKey= "#d96fa7") : (colorKey= "#03a9fc"); 
+            
+            return <ellipse 
                             cx="49.97" 
                             cy="40.725" 
                             rx="20.359" 
                             ry="18.859" 
                             style={{
-                                fill: on ? ("#818CEF"): ("#D5D6DE"),
+                                fill: on ? colorKey : ("#D5D6DE"),
                                 stroke:"#ff0046",
                                 strokeWidth:"1.41px"
                             }}
-                    />;
+                    />
+            };
 
     return (
         // <div style={{borderStyle: "solid"}}>
